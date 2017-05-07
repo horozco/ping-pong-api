@@ -16,6 +16,18 @@ class Player < ApplicationRecord
 
   before_validation :reset_auth_token!, on: :create
 
+  def played_matches
+    Match.where('winner_id= ? OR loser_id= ?', id, id)
+  end
+
+  def won_matches
+    Match.where('winner_id= ?', id)
+  end
+
+  def lost_matches
+    Match.where('loser_id= ?', id)
+  end
+
   def reset_auth_token!(options = {})
     begin
       self.auth_token = Devise.friendly_token

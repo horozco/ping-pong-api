@@ -6,7 +6,8 @@ Rails.application.routes.draw do
       namespace :v1 do
         resources :sessions, only: %i[create destroy]
         resources :players, only: %i[create index show update]
-        devise_for :players, :skip => [:sessions, :registrations, :passwords]
+        resources :matches, only: %i[create index]
+        devise_for :players, skip: %i[sessions registrations passwords]
       end
     end
   end

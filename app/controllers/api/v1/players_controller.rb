@@ -4,12 +4,12 @@ module Api
   module V1
     class PlayersController < ApplicationController
       before_action :authenticate_request!, except: [:create]
-      before_action :load_player, only: [:show, :update]
+      before_action :load_player, only: %i[show update]
 
       def index
         render json: Player.all, status: 200
       end
-      
+
       def create
         player = Player.new(player_params)
         if player.save
@@ -41,7 +41,7 @@ module Api
             title: 'Player not found error',
             detail: 'Requested player was not found'
           )
-        end        
+        end
       end
 
       private

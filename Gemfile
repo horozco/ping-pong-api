@@ -9,12 +9,13 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'active_model_serializers'
 gem 'devise', git: 'https://github.com/gogovan/devise.git', branch: 'rails-5.1'
+gem 'elo_rating', '~> 1.0'
 gem 'pg', '~> 0.18.4'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.0.rc1'
 gem 'rubocop', '~> 0.48.1', require: false
-gem 'active_model_serializers'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production

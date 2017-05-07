@@ -6,37 +6,31 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
   it { expect(v1_players_path).to eq('/v1/players') }
   it { expect(v1_player_path(1)).to eq('/v1/players/1') }
   it {
-    expect(post: v1_players_url).to route_to({
-      controller: 'api/v1/players',
-      action:     'create',
-      subdomain:  'api',
-      format:     :json
-    })
+    expect(post: v1_players_url).to route_to(controller: 'api/v1/players',
+                                             action:     'create',
+                                             subdomain:  'api',
+                                             format:     :json)
   }
   it {
-    expect(put: v1_player_url(1)).to route_to({
-      controller: 'api/v1/players',
-      action:     'update',
-      id: '1',
-      subdomain:  'api',
-      format:     :json
-    })
+    expect(put: v1_player_url(1)).to route_to(controller: 'api/v1/players',
+                                              action:     'update',
+                                              id: '1',
+                                              subdomain:  'api',
+                                              format:     :json)
   }
   it {
-    expect(get: v1_player_url(1)).to route_to({
-      controller: 'api/v1/players',
-      action:     'show',
-      id: '1',
-      subdomain:  'api',
-      format:     :json
-    })
+    expect(get: v1_player_url(1)).to route_to(controller: 'api/v1/players',
+                                              action:     'show',
+                                              id: '1',
+                                              subdomain:  'api',
+                                              format:     :json)
   }
 
-  describe "authentication is required to" do
+  describe 'authentication is required to' do
     [
-      {method: 'put',     action: 'update',   params: {format: :json, params: {id: 0}} },
-      {method: 'get',     action: 'index',    params: {format: :json} },
-      {method: 'get',     action: 'show',     params: {format: :json, params: {id: 0}} },
+      { method: 'put',     action: 'update',   params: { format: :json, params: { id: 0 } } },
+      { method: 'get',     action: 'index',    params: { format: :json } },
+      { method: 'get',     action: 'show',     params: { format: :json, params: { id: 0 } } }
     ].each do |request|
       context "#{request[:method].upcase} ##{request[:action]}" do
         before do
@@ -52,8 +46,8 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
     end
   end
 
-  describe "POST #create" do
-    let(:params) {
+  describe 'POST #create' do
+    let(:params) do
       {
         player: {
           name: FactoryGirl.attributes_for(:player)[:name],
@@ -62,9 +56,9 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
           password_confirmation: FactoryGirl.attributes_for(:player)[:password_confirmation]
         }
       }
-    }
+    end
 
-    context "with valid attributes" do
+    context 'with valid attributes' do
       before(:each) do
         post :create, format: :json, params: params
       end
@@ -76,7 +70,7 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
       it { expect(json['name']).to eq(params[:player][:name]) }
     end
 
-    ['name', 'email', 'password'].each do |field_name|
+    %w[name email password].each do |field_name|
       context "without #{field_name}" do
         before(:each) do
           params[:player][field_name.to_sym] = ''
@@ -91,20 +85,20 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
     end
   end
 
-  describe "PUT #update" do
+  describe 'PUT #update' do
     let(:player) { FactoryGirl.create(:player) }
-    let(:params) {
+    let(:params) do
       {
         id: player.id,
         player: {
           name: 'New name'
         }
       }
-    }
+    end
 
     before { request.headers['Authorization'] = player.auth_token }
 
-    context "with valid attributes" do
+    context 'with valid attributes' do
       before(:each) do
         put :update, format: :json, params: params
       end
@@ -116,7 +110,7 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
       it { expect(json['name']).to match('New name') }
     end
 
-    ['name', 'email', 'password'].each do |field_name|
+    %w[name email password].each do |field_name|
       context "without #{field_name}" do
         before(:each) do
           params[:player][field_name.to_sym] = ''
@@ -131,17 +125,17 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
     end
   end
 
-  describe "GET #show" do
+  describe 'GET #show' do
     let(:player) { FactoryGirl.create(:player) }
-    let(:params) {
+    let(:params) do
       {
         id: player.id
       }
-    }
+    end
 
     before { request.headers['Authorization'] = player.auth_token }
 
-    context "with valid attributes" do
+    context 'with valid attributes' do
       before(:each) do
         get :show, format: :json, params: params
       end
@@ -155,15 +149,15 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
     end
   end
 
-  describe "GET #index" do
+  describe 'GET #index' do
     let(:players) { FactoryGirl.create_list(:player, 4) }
-    let(:params) {
+    let(:params) do
       {}
-    }
+    end
 
     before { request.headers['Authorization'] = players.first.auth_token }
 
-    context "with valid attributes" do
+    context 'with valid attributes' do
       before(:each) do
         get :index, format: :json, params: params
       end
