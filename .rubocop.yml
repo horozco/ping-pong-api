@@ -1,0 +1,25 @@
+Rails:
+  Enabled: true
+AllCops:
+  TargetRubyVersion: 2.4.1
+  Exclude:
+    - db/schema.rb
+    - db/migrate/*.rb
+    - bin/*
+    - spec/factories/*.rb
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Max: 100
+  ExcludedMethods: ['describe', 'context']
+
+MethodLength:
+  Max: 16
+
+Metrics/AbcSize:
+  Max: 20

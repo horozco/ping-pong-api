@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: ping_pong_development
+
+test:
+  <<: *default
+  database: ping_pong_test
+
+production:
+  <<: *default
+  database: ping_pong_production
