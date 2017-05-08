@@ -7,14 +7,12 @@ RSpec.describe Api::V1::MatchesController, type: :controller do
   it {
     expect(post: v1_matches_url).to route_to(controller: 'api/v1/matches',
                                              action:     'create',
-                                             subdomain:  'api',
                                              format:     :json)
   }
   it {
     expect(get: v1_matches_url).to route_to(controller: 'api/v1/matches',
-                                          action:     'index',
-                                          subdomain:  'api',
-                                          format:     :json)
+                                            action:     'index',
+                                            format:     :json)
   }
 
   describe 'authentication is required to' do

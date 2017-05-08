@@ -8,21 +8,18 @@ RSpec.describe Api::V1::PlayersController, type: :controller do
   it {
     expect(post: v1_players_url).to route_to(controller: 'api/v1/players',
                                              action:     'create',
-                                             subdomain:  'api',
                                              format:     :json)
   }
   it {
     expect(put: v1_player_url(1)).to route_to(controller: 'api/v1/players',
                                               action:     'update',
                                               id: '1',
-                                              subdomain:  'api',
                                               format:     :json)
   }
   it {
     expect(get: v1_player_url(1)).to route_to(controller: 'api/v1/players',
                                               action:     'show',
                                               id: '1',
-                                              subdomain:  'api',
                                               format:     :json)
   }
 

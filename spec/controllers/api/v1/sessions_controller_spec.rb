@@ -7,15 +7,12 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
   it {
     expect(post: v1_sessions_url).to route_to(controller: 'api/v1/sessions',
                                               action:     'create',
-                                              subdomain:  'api',
                                               format:     :json)
   }
   it {
-    expect(delete: v1_session_url(1)).to route_to(controller: 'api/v1/sessions',
-                                                  action:     'destroy',
-                                                  subdomain:  'api',
-                                                  id:         '1',
-                                                  format:     :json)
+    expect(delete: v1_sessions_url).to route_to(controller: 'api/v1/sessions',
+                                               action:     'destroy',
+                                               format:     :json)
   }
 
   describe 'POST #create' do
@@ -70,6 +67,6 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       delete :destroy, params: { id: player.auth_token }
     end
 
-    it { should respond_with 204 }
+    it { should respond_with 200 }
   end
 end

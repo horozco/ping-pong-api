@@ -23,7 +23,9 @@ module Api
       def destroy
         current_player.reset_auth_token! save: true
         sign_out current_player
-        head 204
+        render json: {
+          message: 'Signed out correctly'
+        }, status: 200
       end
 
       private
